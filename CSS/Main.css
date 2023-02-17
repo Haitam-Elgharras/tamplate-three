@@ -55,6 +55,87 @@ html {
 body {
   /* background-color: #eee; */
 }
+
+/*start componanets*/
+.main-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-title h1 {
+  padding: 10px 20px;
+  border: 2px solid black;
+  position: relative;
+  /* when you applied something on h1 it takes 0.3s on applying */
+  transition: 0.3s;
+  z-index: 2;
+}
+.main-title h1:hover {
+  color: white;
+  border: 2px solid white;
+  /* when I hover the hover will applied only after 0.5s  */
+  transition-delay: 0.5s;
+}
+.main-title h1::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #2196f3;
+  border-radius: 50%;
+  left: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.main-title h1::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #2196f3;
+  border-radius: 50%;
+  right: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.main-title h1:hover::after {
+  z-index: -1;
+  /* forwards mean the last state of the animation stay at it (at 100%) */
+  animation: move-right 0.5s linear forwards;
+}
+.main-title h1:hover::before {
+  z-index: -1;
+  animation: move-left 0.5s linear forwards;
+}
+@keyframes move-left {
+  50% {
+    left: 0;
+  }
+  100% {
+    /* you have to write left 0 another time cause if you don't
+    write it the element will backwards to -25px */
+    left: 0;
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2196f3;
+  }
+}
+@keyframes move-right {
+  50% {
+    right: 0;
+  }
+  100% {
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2196f3;
+    border-radius: 0;
+  }
+}
+
+/* end componanets*/
+
 /* strat header */
 .header {
   background-color: #fff;
@@ -384,79 +465,375 @@ body {
 /* start main title */
 .title {
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
-.title .main-title {
+.title .container .items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  margin-top: 50px;
+  gap: 40px;
+}
+.title .container .item {
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px 7px rgb(0 0 0 / 0.1);
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.title .main-title h1 {
-  padding: 10px 20px;
-  border: 2px solid black;
-  position: relative;
-  /* when you applied something on h1 it takes 0.3s on applying */
+  flex-flow: column nowrap;
+  flex: 1;
+  height: 100%;
   transition: 0.3s;
 }
-.title .main-title h1:hover {
-  color: white;
-  border: 2px solid white;
-  /* when I hover the hover will applied only after 0.5s  */
-  transition-delay: 0.5s;
+.title .container .item .image img {
+  width: 100%;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
 }
-.title .main-title h1::before {
+.title .item .text {
+  padding: 20px;
+  padding-bottom: 10px;
+  margin: 0;
+}
+.title .item:hover {
+  transform: translateY(-10px);
+}
+.title .item:hover .more i {
+  animation-name: right;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.title .item .more {
+  padding: 20px;
+  padding-top: 0;
+  line-height: 1.4;
+  margin: 0;
+  position: relative;
+}
+.title .item .more a {
+  color: #2196f3;
+  font-weight: bold;
+}
+.title .item .more i {
+  font-size: 13px;
+  position: absolute;
+  right: 20px;
+  bottom: 25px;
+  color: #2196f3;
+}
+@keyframes right {
+  0%,
+  20%,
+  40% {
+    transform: translateX(0px);
+  }
+  50%,
+  70% {
+    transform: translateX(-10px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(0px);
+  }
+}
+.title .container .item .text h3 {
+  margin: 0;
+}
+
+/* end main title */
+.spikes {
+  position: relative;
+}
+.spikes::after {
+  content: "";
+  width: 100%;
+  position: absolute;
+  /* background-color: ; */
+}
+/* start gallery  */
+.gallery {
+  padding-top: 70px;
+  padding-bottom: 70px;
+  background-color: #ececec;
+}
+.gallery .container .main-title {
+  margin-bottom: 50px;
+}
+.gallery .container .content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 40px;
+}
+.gallery .content .box {
+  padding: 15px;
+  background-color: white;
+}
+.gallery .container .image {
+  position: relative;
+  overflow: hidden;
+}
+.gallery .image img {
+  max-width: 100%;
+  transition: 0.3s;
+}
+.gallery .image::before {
   content: "";
   position: absolute;
-  width: 12px;
-  height: 12px;
-  background-color: #2196f3;
-  border-radius: 50%;
-  left: -25px;
+  width: 0;
+  height: 0;
+  background-color: rgb(255 255 255 / 0.2);
+  transform: translate(-50%, -50%);
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  z-index: 2;
+  opacity: 1;
 }
-.title .main-title h1::after {
-  content: "";
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background-color: #2196f3;
-  border-radius: 50%;
-  right: -25px;
-  top: 50%;
-  transform: translateY(-50%);
+
+.gallery .image:hover::before {
+  animation: flashing 0.7s;
 }
-.title .main-title h1:hover::after {
-  z-index: -1;
-  animation: move-right 0.5s linear forwards;
+.gallery .image:hover img {
+  transform: rotate(3deg) scale(1.1);
 }
-.title .main-title h1:hover::before {
-  z-index: -1;
-  animation: move-left 0.5s linear forwards;
-}
-@keyframes move-left {
+/* If a linear timing function is used, the width and height of the pseudo-element will
+ increase at a constant rate, so it will take exactly 10 seconds for them to reach 200%.
+ at 50% keyframe the width will be 100% */
+@keyframes flashing {
+  0%,
   50% {
-    left: 0;
+    opacity: 1;
   }
+  /* if an attr is not declared before it take the whole time before it
+   to get to his state at his 1st declaration  */
   100% {
-    left: 0;
-    border-radius: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #2196f3;
-  }
-}
-@keyframes move-right {
-  50% {
-    right: 0;
-  }
-  100% {
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #2196f3;
-    border-radius: 0;
+    width: 200%;
+    height: 200%;
+    opacity: 0;
   }
 }
 
-/* end main title*/
+/* end gallery  */
+
+/* <!-- start features --> */
+.features {
+  padding-top: 70px;
+  padding-bottom: 70px;
+  background-color: white;
+}
+.features .container .box {
+  display: grid;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 70px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 40px;
+}
+@media (max-width: 991px) {
+  .features .container .box {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+@media (max-width: 687px) {
+  .features .container .box {
+    grid-template-columns: 1fr;
+  }
+}
+.features .container .item {
+  text-align: center;
+  border: 1px #666 solid;
+  position: relative;
+}
+
+.features .container .item img {
+  width: 100%;
+}
+.features .container .item:nth-of-type(1) .image::before {
+  content: "";
+  background-color: rgb(255 69 0 / 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 1px;
+  right: 0;
+}
+.features .container .item .image {
+  position: relative;
+  overflow: hidden;
+}
+.features .container .item:nth-of-type(2) .image::before {
+  content: "";
+  background-color: rgb(0, 150, 136, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 1px;
+  right: 0;
+}
+.features .container .item:nth-of-type(3) .image::before {
+  content: "";
+  background-color: rgb(3, 169, 244, 0.5);
+  color: rgb(3, 169, 244, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 1px;
+  right: 0;
+}
+.features .container .item .image::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  border-style: solid;
+  border-width: 0 0 150px 500px;
+  border-color: transparent transparent white transparent;
+  transition: 0.3s;
+}
+.features .container .item:hover .image::after {
+  /* border-width: 150px 0 0 500px;
+  border-color: transparent transparent transparent white;
+  left: 0; */
+  border-width: 0 500px 150px 0;
+  border-color: transparent transparent white;
+  left: 0;
+}
+.features .item .text {
+  width: 90%;
+  margin: 10px auto;
+}
+.features .item button {
+  text-decoration: none;
+  padding: 10px 30px;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10px;
+  background-color: white;
+}
+.features .item .button {
+  margin-bottom: 30px;
+}
+.features .item button {
+  transition: 0.3s;
+}
+/*The "background-size" property sets the size of the background image. In this case,
+ the background is set to be 200% wide and 100% high. This means that the gradient background
+  is twice as wide as the button element.
+
+The "background-position" property sets the starting position of the background image.
+ In this case, it is set to the right bottom corner of the button.
+  This means that the right bottom corner of the gradient background
+   is aligned with the right bottom corner of the button element.*/
+
+.features .item:nth-of-type(1) button {
+  border: 3px solid rgb(255, 69, 0);
+  color: rgb(255 69 0);
+  transition: 0.3s;
+  /* the color will start with 0.5 orgr and 0.5white 
+  the background-size is 200%w and 100%h for the 2nd color
+  the back ground position is set to right so we will see the right-buttom part of the back ground 
+  which is 100% white  */
+  background: linear-gradient(to right, orangered 50%, white 50%);
+  background-size: 200% 100%;
+
+  /* the element right-buttom will be exactly at the background right-buttom */
+  background-position: right bottom;
+}
+
+.features .item:nth-of-type(2) button {
+  border: 3px solid #009688;
+  color: rgb(0, 150, 136);
+  background: linear-gradient(to right, #009688 50%, white 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+}
+.features .item:nth-of-type(3) button {
+  border: 3px solid #03a9f4;
+  color: #03a9f4;
+  background: linear-gradient(to right, #03a9f4 50%, white 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+}
+.features .item:hover button {
+  background-position: left bottom;
+  color: white;
+}
+.features .item h1 {
+  position: relative;
+  width: fit-content;
+  margin: 10px auto;
+  font-size: 40px;
+}
+
+.features .item h1::after {
+  content: "";
+  position: absolute;
+  border-bottom: 5px solid;
+  width: 80%;
+  bottom: -15px;
+  left: calc(10%);
+}
+.features .item:nth-of-type(1) h1::after {
+  border-bottom-color: orangered;
+}
+.features .item:nth-of-type(2) h1::after {
+  border-bottom-color: #009688;
+}
+.features .item:nth-of-type(3) h1::after {
+  border-bottom-color: #03a9f4;
+}
+.features .item p {
+  line-height: 2;
+  font-size: 20px;
+  margin: 30px auto;
+}
+/* <!-- end features --> */
+
+/* Start Testimonials */
+.testimonials {
+  padding-top: 70px;
+  padding-bottom: 70px;
+  position: relative;
+  background-color: #eee;
+}
+.testimonials .main-title {
+  margin: 0 0 100px;
+}
+.testimonials .container1 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 40px;
+}
+.testimonials .box {
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 7%);
+  border-radius: 6px;
+  position: relative;
+}
+.testimonials .box img {
+  position: absolute;
+  right: -10px;
+  top: -50px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 10px solid #eee;
+}
+.testimonials .box h3 {
+  margin: 0 0 10px;
+}
+.testimonials .box .title {
+  color: #777;
+  margin-bottom: 10px;
+  display: block;
+}
+.testimonials .box .rate .filled {
+  color: #ffc107;
+}
+.testimonials .box p {
+  line-height: 1.5;
+  color: #777;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+/* End Testimonials */
